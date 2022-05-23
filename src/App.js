@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import styled from 'styled-components';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Nav from './components/Nav/Nav';
+import Countries from './components/Countries/Countries';
+import About from './components/About/About';
+
+const App = () => {
+    return (
+        <Container>
+            <Nav />
+
+            <Routes>
+                <Route path='/' element={<Countries />} />
+                <Route path='/about' element={<About />} />
+            </Routes>
+
+        </Container>
+    )
+};
+
+const Container = styled.section`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+`
 
 export default App;
