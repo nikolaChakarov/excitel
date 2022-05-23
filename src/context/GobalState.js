@@ -16,7 +16,7 @@ export const GlobalProvider = ({ children }) => {
     const getAllCountries = async () => {
 
         try {
-            const dbResponse = await (await fetch('https://excitel-countries.azurewebsites.net/countries')).json();
+            const dbResponse = await (await fetch('/countries')).json();
 
             console.log(dbResponse);
 
