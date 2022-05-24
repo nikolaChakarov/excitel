@@ -1,29 +1,30 @@
 :root {
-    --purple: #6b4a9e;
-    --blue-green: #10adad;
-    --grey: #c9c9c9;
-    --shadow: 0 3px 6px rgba(0, 0, 0, 0.3)
+	--purple: #6b4a9e;
+	--blue-green: #10adad;
+	--grey: #c9c9c9;
+	--shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+	--innerShadow: inset 0 3px 3px rgba(0, 0, 0, 0.2);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 html {
-    font-size: 62.5%;
+	font-size: 62.5%;
 }
 
 body {
-    font-size: 16px;
-    font-family: 'Quicksand', sans-serif;
+	font-size: 16px;
+	font-family: "Quicksand", sans-serif;
 }
 
 a {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 ul li {
-    list-style: none;
+	list-style: none;
 }
