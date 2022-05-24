@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { ExpandMore, Search } from "@mui/icons-material";
 
 const Controls = () => {
+	/* this can be made easier, since we have only one select, but if now we add another one, it's much more scalable. */
 	const [selectClick, setSelectClick] = useState({});
+	const [currentSelect, setCurrentSelect] = useState("sort...");
 
 	const onSelectClickHandler = (e) => {
 		e.stopPropagation();
@@ -31,32 +33,49 @@ const Controls = () => {
 				onClick={onSelectClickHandler}
 			>
 				<div className="arrow-wrapper">
-					<span className="current-select">sort...</span>
-					<ExpandMore />
+					<span className="current-select">{currentSelect}</span>
+					<ExpandMore
+						style={{
+							transform: selectClick.countriesSelect ? "rotate(180deg)" : "",
+							transition: "all .5s ease-in-out",
+						}}
+					/>
 				</div>
 
-				{selectClick.countriesSelect && <Select />}
+				{selectClick.countriesSelect && (
+					<Select
+						currentSelect={currentSelect}
+						setCurrentSelect={setCurrentSelect}
+					/>
+				)}
 			</div>
 		</ControlsContainer>
 	);
 };
 
 /*  custom select */
-const Select = ({ currentSelect }) => {
+const Select = ({ currentSelect, setCurrentSelect }) => {
 	const filterElements = [
+		"sort...",
 		"capital name",
 		"code",
 		"country name",
 		"population",
 		"region",
 		"subregion",
-	];
+	].filter((el) => el !== currentSelect);
+
+	const onCurrentSelectClickHandler = (e) => {
+		setCurrentSelect(e.currentTarget.dataset.name);
+	};
 
 	return (
 		<SelectContainer>
 			<ul>
 				{filterElements.map((el, i) => (
-					<li key={i}>{el}</li>
+					<li key={i} data-name={el} onClick={onCurrentSelectClickHandler}>
+						{el}
+					</li>
 				))}
 			</ul>
 		</SelectContainer>
@@ -103,7 +122,7 @@ const ControlsContainer = styled.section`
 
 	.select-wrapper {
 		background: #fff;
-		min-width: 14rem;
+		min-width: 15rem;
 		position: relative;
 		padding: 0 1rem;
 		cursor: pointer;
