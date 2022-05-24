@@ -23,6 +23,7 @@ const FooterContainer = styled.footer`
 
 	a {
 		font-weight: 700;
+		color: var(--purple);
 	}
 `;
 

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+
+import useDebounce from "../../hooks/useDebounce";
 
 import { ExpandMore, Search } from "@mui/icons-material";
 
@@ -8,8 +10,15 @@ const Controls = () => {
 	const [selectClick, setSelectClick] = useState({});
 	const [currentSelect, setCurrentSelect] = useState("sort...");
 
+	const [countryName, setCountryName] = useState('');
+
+	const onInputChangeHandler = (e) => {
+		const inputValue = e.target.value;
+
+		setCountryName(inputValue);
+	};
+
 	const onSelectClickHandler = (e) => {
-		e.stopPropagation();
 		const selectName = e.currentTarget.dataset.name;
 
 		setSelectClick((prev) => ({
@@ -17,12 +26,27 @@ const Controls = () => {
 		}));
 	};
 
+	const debouncedValue = useDebounce(countryName, 1000);
+
+	useEffect(() => {
+		if (debouncedValue) {
+			console.log(debouncedValue);
+		}
+
+	}, [debouncedValue])
+
 	return (
 		<ControlsContainer>
 			<label htmlFor="countryName">
 				<span>Filter By Country Name</span>
 				<div className="input-wrapper">
-					<input type="text" id="countryName" name="countryName" />
+					<input
+						type="text"
+						id="countryName"
+						name="countryName"
+						value={countryName}
+						onChange={onInputChangeHandler}
+					/>
 					<Search className="icon" />
 				</div>
 			</label>
@@ -86,7 +110,6 @@ const Select = ({ currentSelect, setCurrentSelect }) => {
 const ControlsContainer = styled.section`
 	display: flex;
 	padding: 2rem;
-	border-radius: 0.3rem;
 	background: var(--blue-green);
 	color: #fff;
 
