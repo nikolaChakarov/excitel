@@ -4,7 +4,7 @@ import AppReducer from "./AppReducer";
 const initState = {
 	countries: [],
 	filterd: [],
-	getAllCountries: () => {},
+	getAllCountries: () => { },
 	isLoading: true,
 };
 
@@ -27,7 +27,6 @@ export const GlobalProvider = ({ children }) => {
 				payload: dbResponse,
 			});
 
-			console.log(dbResponse);
 		} catch (err) {
 			console.log(err);
 		}
