@@ -29,15 +29,14 @@ const Countries = () => {
 
     useEffect(() => {
         getAllCountries();
+        // // clear sort
+        sortByQuery('country name');
 
         return () => {
             // clear filtered array
             dispatch({
                 type: 'CLEAR_SEARCH'
             });
-
-            // // clear sort
-            // sortByQuery('country name');
         }
     }, []);
 
