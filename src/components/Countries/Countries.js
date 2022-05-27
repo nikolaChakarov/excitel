@@ -1,9 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import ReactPaginate from "react-paginate";
+import Pagination from "react-js-pagination";
 
 import { GlobalContext } from "../../context/GobalState";
-import { ChevronLeft, ChevronRight } from '@mui/icons-material';
+import {
+    FirstPage,
+    LastPage,
+    ChevronLeftOutlined,
+    ChevronRightOutlined,
+} from "@mui/icons-material";
 
 import Controls from "../Controls/Controls";
 import Country from '../Country/Country';
@@ -12,14 +17,13 @@ const Countries = () => {
     const { getAllCountries, countries } = useContext(GlobalContext);
 
     /* pagination */
-    const [pageNumber, setPageNumber] = useState(0);
-    const itemsPerPage = 16;
-    const pagesVisited = pageNumber * itemsPerPage;
-    const pageCount = Math.ceil(countries.length / itemsPerPage);
-
+    const [activePage, setActivePage] = useState(1);
+    const itemsPerPage = 12;
+    const pagesVisited = (activePage - 1) * itemsPerPage;
     const displayItems = countries.slice(pagesVisited, pagesVisited + itemsPerPage);
-    const onPageChange = ({ selected }) => {
-        setPageNumber(selected);
+
+    const changePage = (num) => {
+        setActivePage(num);
     };
     /* end pagination */
 
@@ -38,17 +42,24 @@ const Countries = () => {
                 ))}
             </Ul>
 
-            <ReactPaginate
-                previousLabel={<ChevronLeft />}
-                nextLabel={<ChevronRight />}
-                pageCount={pageCount}
-                marginPagesDisplayed={2}
-                onPageChange={onPageChange}
-                containerClassName={'pagination-wrapper'}
-                pageClassName={'pagination-page'}
-                pageLinkClassName={'pagination-link'}
-                previousClassName={'pagination-btn'}
-                nextClassName={'pagination-btn'}
+            <Pagination
+                totalItemsCount={countries.length}
+                onChange={changePage}
+                activePage={activePage}
+                itemsCountPerPage={itemsPerPage}
+                pageRangeDisplayed={5}
+                firstPageText={<FirstPage />}
+                prevPageText={<ChevronLeftOutlined />}
+                lastPageText={<LastPage />}
+                nextPageText={<ChevronRightOutlined />}
+                innerClass={"pagination-container"}
+                itemClass={"pagination-item"}
+                linkClass={"pagination-link"}
+                itemClassFirst={"pagination-btn-end"}
+                itemClassLast={"pagination-btn-end"}
+                itemClassNext={"pagination-btn"}
+                itemClassPrev={"pagination-btn"}
+                activeLinkClass={"pagination-active"}
             />
         </CountriesContainer>
     );
@@ -59,41 +70,41 @@ const CountriesContainer = styled.section`
         display: flex;
         flex-direction: column; 
 
-    .pagination-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: lightgray;
-        border: 2px dashed red;
-        margin-top: auto;
-    }
-
-    .pagination-page {
-        background: red;
-        width: 3rem;
-        height: 2rem;
-        margin: 0 .5rem;
-        display: flex;
-    }
-
-    .pagination-link {
-        display: block;
-        background: green;
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .pagination-btn {
-        background: var(--purple);
-        color: #fff;
-        min-width: 3rem;
-        min-height: 3rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
+    .pagination-container {
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		display: flex;
+		justify-content: center;
+		margin-top: auto;
+		margin-bottom: 20px;
+		.pagination-item {
+			border: 1px groove #fff;
+			width: 50px;
+			height: 30px;
+			display: flex;
+			margin-right: 10px;
+			&:last-of-type {
+				margin-right: 0;
+			}
+		}
+		.pagination-link {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-decoration: none;
+			color: #333;
+		}
+		.pagination-active {
+			background: #333;
+			color: #fff;
+			transition: all 0.2s ease-in-out;
+			&:hover {
+				box-shadow: inset 0px 0px 5px red;
+			}
+		} 
     }
 `;
 
