@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 
 import useDebounce from "../../hooks/useDebounce";
+import { GlobalContext } from "../../context/GobalState";
 
 import { ExpandMore, Search } from "@mui/icons-material";
 
 const Controls = () => {
+	const { searchCountries, dispatch } = useContext(GlobalContext);
+
 	/* this can be made easier, since we have only one select, but if now we add another one, it's much more scalable. */
 	const [selectClick, setSelectClick] = useState({});
 	const [currentSelect, setCurrentSelect] = useState("sort...");
@@ -13,9 +16,17 @@ const Controls = () => {
 	const [countryName, setCountryName] = useState('');
 
 	const onInputChangeHandler = (e) => {
-		const inputValue = e.target.value;
 
+		const inputValue = e.target.value;
 		setCountryName(inputValue);
+
+		// reset filtered array;
+		if (inputValue.length === 0) {
+			dispatch({
+				type: 'CLEAR_SEARCH'
+			});
+		}
+
 	};
 
 	const onSelectClickHandler = (e) => {
@@ -30,13 +41,14 @@ const Controls = () => {
 
 	useEffect(() => {
 		if (debouncedValue) {
-			console.log(debouncedValue);
+			searchCountries(debouncedValue);
 		}
 
 	}, [debouncedValue])
 
 	return (
 		<ControlsContainer>
+			{/* filter */}
 			<label htmlFor="countryName">
 				<span>Filter By Country Name</span>
 				<div className="input-wrapper">
@@ -51,6 +63,7 @@ const Controls = () => {
 				</div>
 			</label>
 
+			{/* sort */}
 			<div
 				className="select-wrapper"
 				data-name="countriesSelect"

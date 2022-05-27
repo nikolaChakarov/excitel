@@ -3,8 +3,9 @@ import AppReducer from "./AppReducer";
 
 const initState = {
 	countries: [],
-	filterd: [],
+	filtered: [],
 	getAllCountries: () => { },
+	searchCountries: (query) => { },
 	isLoading: true,
 };
 
@@ -32,11 +33,21 @@ export const GlobalProvider = ({ children }) => {
 		}
 	};
 
+	const searchCountries = (query) => {
+		dispatch({
+			type: 'SEARCH',
+			payload: query
+		})
+	}
+
 	return (
 		<GlobalContext.Provider
 			value={{
 				countries: appState.countries,
+				filtered: appState.filtered,
+				dispatch,
 				getAllCountries,
+				searchCountries
 			}}
 		>
 			{children}

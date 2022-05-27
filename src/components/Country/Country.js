@@ -86,6 +86,7 @@ const Li = styled.li`
     box-shadow: var(--shadow);
     position: relative;
     cursor: pointer;
+    max-height: 11rem;
 
     .spinner {
         position: absolute;

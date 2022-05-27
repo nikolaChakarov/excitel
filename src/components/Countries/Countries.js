@@ -14,13 +14,13 @@ import Controls from "../Controls/Controls";
 import Country from '../Country/Country';
 
 const Countries = () => {
-    const { getAllCountries, countries } = useContext(GlobalContext);
+    const { getAllCountries, countries, filtered, dispatch } = useContext(GlobalContext);
 
     /* pagination */
     const [activePage, setActivePage] = useState(1);
     const itemsPerPage = 12;
     const pagesVisited = (activePage - 1) * itemsPerPage;
-    const displayItems = countries.slice(pagesVisited, pagesVisited + itemsPerPage);
+    const displayItems = filtered.length > 0 ? filtered.slice(pagesVisited, pagesVisited + itemsPerPage) : countries.slice(pagesVisited, pagesVisited + itemsPerPage);
 
     const changePage = (num) => {
         setActivePage(num);
@@ -29,8 +29,12 @@ const Countries = () => {
 
     useEffect(() => {
         getAllCountries();
-    }, [countries]);
 
+        // clear filtered array
+        return () => dispatch({
+            type: 'CLEAR_SEARCH'
+        })
+    }, [countries]);
 
     return (
         <CountriesContainer>
@@ -43,7 +47,7 @@ const Countries = () => {
             </Ul>
 
             <Pagination
-                totalItemsCount={countries.length}
+                totalItemsCount={filtered.length > 0 ? filtered.length : countries.length}
                 onChange={changePage}
                 activePage={activePage}
                 itemsCountPerPage={itemsPerPage}
@@ -65,6 +69,7 @@ const Countries = () => {
     );
 };
 
+/* styles */
 const CountriesContainer = styled.section`
         flex: 1;
         display: flex;

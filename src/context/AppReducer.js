@@ -6,6 +6,19 @@ const AppReducer = (state, action) => {
 				countries: [...action.payload],
 			};
 
+		case 'CLEAR_SEARCH':
+			return {
+				...state,
+				filtered: []
+			}
+
+		case "SEARCH":
+			return {
+				...state,
+				filtered: [...state.countries.filter(el => el.name.toLowerCase().includes(action.payload.toLowerCase()))]
+			};
+
+
 		default:
 			return state;
 	}
