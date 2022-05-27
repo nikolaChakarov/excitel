@@ -35,9 +35,7 @@ export default function CircularStatic() {
 
     return (
         <SpinnerContainer>
-            <span>hold for:</span>
             <CircularProgressWithLabel value={count * 33} />
-            <span>seconds!</span>
         </SpinnerContainer>
     );
 }

@@ -2,9 +2,10 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import CircularStatic from "../Progress/Progress";
+import Module from '../Module/Module';
 
 const Country = (props) => {
-    const { capitalName, code, flag, name, population, region, subregion, id } = props;
+    const { flag, name, id } = props;
 
     /* li handlers */
     let showLiTimer = useRef(null);
@@ -62,8 +63,10 @@ const Country = (props) => {
                 <div className="img-wrapper">
                     <img src={flag} alt={name} />
                 </div>
+                <div className='country-cover'>{name}</div>
 
                 {showSpinner[id] && (
+                    /* spinner component */
                     <div className="spinner">
                         <CircularStatic />
                     </div>
@@ -71,24 +74,41 @@ const Country = (props) => {
             </Li>
 
             {showLiItem[id] && (
-                <div style={{ opacity: 1, visibility: "visible" }}>
-                    <span>
-                        This ID: {id} has this name: {name}
-                    </span>
-                </div>
+                <Module handlerStartCounter={handlerStartCounter} {...props} />
             )}
         </>
     )
 }
 
 const Li = styled.li`
-    border: 2px dashed red;
+    border-radius: 0.3rem;
+    padding: .5rem;
+    box-shadow: var(--shadow);
+    position: relative;
     cursor: pointer;
+
+    .spinner {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0;
+    }
+
+    &:hover {
+        filter: grayscale(0);
+    }
+
+
+    .country-cover {
+        text-align: center;
+        font-weight: 600;
+        color: #777;
+        pointer-events: none;
+    }
 
     .img-wrapper {
         width: 6rem;
         height: 3rem;
-        border: 1px dashed;
+        margin-bottom: 0.5rem;
     }
 
     img {
@@ -98,4 +118,5 @@ const Li = styled.li`
         object-fit: cover;
     }
 `
+
 export default Country

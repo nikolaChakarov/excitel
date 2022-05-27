@@ -101,9 +101,6 @@ const CountriesContainer = styled.section`
 			background: #333;
 			color: #fff;
 			transition: all 0.2s ease-in-out;
-			&:hover {
-				box-shadow: inset 0px 0px 5px red;
-			}
 		} 
     }
 `;
@@ -112,9 +109,9 @@ const Ul = styled.ul`
     padding: 1rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    background: lightblue;
     height: 100%;
     gap: 1rem;
+    margin-bottom: 20px; 
     
     @media (max-width: 576px) {
         grid-template-columns: 1fr;

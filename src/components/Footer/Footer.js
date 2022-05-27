@@ -16,6 +16,7 @@ const FooterContainer = styled.footer`
 	margin-top: auto;
 	display: flex;
 	justify-content: center;
+	border-top: 1px groove #fff;
 
 	span {
 		margin-right: 2rem;
