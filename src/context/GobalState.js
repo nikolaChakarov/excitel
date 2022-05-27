@@ -6,6 +6,7 @@ const initState = {
 	filtered: [],
 	getAllCountries: () => { },
 	searchCountries: (query) => { },
+	sortByQuery: (query) => { },
 	isLoading: true,
 };
 
@@ -40,6 +41,31 @@ export const GlobalProvider = ({ children }) => {
 		})
 	}
 
+	const sortByQuery = (query) => {
+
+		// we can use switch instead
+		const mapped = {
+			"capital name": 'capitalName',
+			"code": "code",
+			"country name": "name",
+			"region": "region",
+			"subregion": "subregion",
+		}
+
+
+		const sortedCountries = appState.countries.sort((a, b) => {
+			return query === 'population' ? b['population'] - a['population'] : a[mapped[query]].toLowerCase().localeCompare(b[mapped[query]].toLowerCase())
+		});
+
+
+		dispatch({
+			type: 'SORT',
+			payload: {
+				countries: sortedCountries,
+			}
+		});
+	}
+
 	return (
 		<GlobalContext.Provider
 			value={{
@@ -47,7 +73,8 @@ export const GlobalProvider = ({ children }) => {
 				filtered: appState.filtered,
 				dispatch,
 				getAllCountries,
-				searchCountries
+				searchCountries,
+				sortByQuery
 			}}
 		>
 			{children}

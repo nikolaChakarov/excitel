@@ -7,7 +7,7 @@ import { GlobalContext } from "../../context/GobalState";
 import { ExpandMore, Search } from "@mui/icons-material";
 
 const Controls = () => {
-	const { searchCountries, dispatch } = useContext(GlobalContext);
+	const { searchCountries, sortByQuery, dispatch } = useContext(GlobalContext);
 
 	/* this can be made easier, since we have only one select, but if now we add another one, it's much more scalable. */
 	const [selectClick, setSelectClick] = useState({});
@@ -83,6 +83,7 @@ const Controls = () => {
 					<Select
 						currentSelect={currentSelect}
 						setCurrentSelect={setCurrentSelect}
+						sortByQuery={sortByQuery}
 					/>
 				)}
 			</div>
@@ -91,7 +92,7 @@ const Controls = () => {
 };
 
 /*  custom select */
-const Select = ({ currentSelect, setCurrentSelect }) => {
+const Select = ({ currentSelect, setCurrentSelect, sortByQuery }) => {
 	const filterElements = [
 		"sort...",
 		"capital name",
@@ -103,7 +104,15 @@ const Select = ({ currentSelect, setCurrentSelect }) => {
 	].filter((el) => el !== currentSelect);
 
 	const onCurrentSelectClickHandler = (e) => {
-		setCurrentSelect(e.currentTarget.dataset.name);
+		const selectedSort = e.currentTarget.dataset.name;
+		setCurrentSelect(selectedSort);
+
+		if (selectedSort === 'sort...') {
+			sortByQuery('country name');
+			return;
+		}
+
+		sortByQuery(selectedSort)
 	};
 
 	return (
@@ -187,6 +196,7 @@ const SelectContainer = styled.div`
 	font-size: 1.4rem;
 	cursor: pointer;
 	box-shadow: var(--shadow);
+	z-index: 100;
 `;
 
 export default Controls;

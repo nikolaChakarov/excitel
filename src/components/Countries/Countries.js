@@ -14,7 +14,7 @@ import Controls from "../Controls/Controls";
 import Country from '../Country/Country';
 
 const Countries = () => {
-    const { getAllCountries, countries, filtered, dispatch } = useContext(GlobalContext);
+    const { getAllCountries, countries, filtered, sortByQuery, dispatch } = useContext(GlobalContext);
 
     /* pagination */
     const [activePage, setActivePage] = useState(1);
@@ -30,11 +30,16 @@ const Countries = () => {
     useEffect(() => {
         getAllCountries();
 
-        // clear filtered array
-        return () => dispatch({
-            type: 'CLEAR_SEARCH'
-        })
-    }, [countries]);
+        return () => {
+            // clear filtered array
+            dispatch({
+                type: 'CLEAR_SEARCH'
+            });
+
+            // // clear sort
+            // sortByQuery('country name');
+        }
+    }, []);
 
     return (
         <CountriesContainer>

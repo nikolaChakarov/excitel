@@ -10,6 +10,12 @@ const AppReducer = (state, action) => {
 			return {
 				...state,
 				filtered: []
+			};
+
+		case 'SORT':
+			return {
+				...state,
+				countries: [...action.payload.countries],
 			}
 
 		case "SEARCH":
