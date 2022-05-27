@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import CircularStatic from "../Progress/Progress";
-import Module from '../Module/Module';
+import Modal from '../Modal/Modal';
 
 const Country = (props) => {
     const { flag, name, id } = props;
@@ -74,7 +74,7 @@ const Country = (props) => {
             </Li>
 
             {showLiItem[id] && (
-                <Module handlerStartCounter={handlerStartCounter} {...props} />
+                <Modal handlerStartCounter={handlerStartCounter} {...props} />
             )}
         </>
     )
@@ -103,12 +103,14 @@ const Li = styled.li`
         font-weight: 600;
         color: #777;
         pointer-events: none;
+        font-size: 1.4rem;
     }
 
     .img-wrapper {
         width: 6rem;
         height: 3rem;
         margin-bottom: 0.5rem;
+        pointer-events: none;
     }
 
     img {
