@@ -12,7 +12,7 @@ const Modal = (props) => {
     }
 
     return (
-        <ModalContainer onClick={onModuleClick}>
+        <ModalContainer onClick={onModuleClick} className="modal-container">
             <InfoEl imgUrl={flag}>
                 <div className="bg">
                     <p>Country: <span>{name}</span></p>

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Footer = () => {
 	return (
-		<FooterContainer>
+		<FooterContainer className="footer-container">
 			<span>Nikola Chakarov 2022</span>
 			<a href={"https://www.excitel.com/"} target="_blank">
 				Excitel

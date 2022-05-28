@@ -47,7 +47,7 @@ const Controls = () => {
 	}, [debouncedValue])
 
 	return (
-		<ControlsContainer>
+		<ControlsContainer className="controls-container">
 			{/* filter */}
 			<label htmlFor="countryName">
 				<span>Filter By Country Name</span>
