@@ -45,6 +45,7 @@ const Country = (props) => {
         setShowLiItem({ [currentItemId]: !showLiItem[currentItemId] });
     };
 
+
     useEffect(() => {
         if (showLiItemCounter > 0) {
             onItemClick(itemId);
@@ -53,13 +54,18 @@ const Country = (props) => {
         return () => handlerStopCounter();
     }, [showLiItemCounter]);
 
+
     /* end li handlers */
     return (
         <>
             <Li data-id={id}
                 onMouseDown={handlerStartCounter}
                 onMouseUp={handlerStopCounter}
-                onMouseLeave={handlerStopCounter}>
+                onMouseLeave={handlerStopCounter}
+                onTouchStart={handlerStartCounter}
+                onTouchEnd={handlerStopCounter}
+
+            >
                 <div className="img-wrapper">
                     <img src={flag} alt={name} />
                 </div>
