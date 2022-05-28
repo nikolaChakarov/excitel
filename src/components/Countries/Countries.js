@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Pagination from "react-js-pagination";
 
 import { GlobalContext } from "../../context/GobalState";
+import useWidth from "../../hooks/useWidth";
 import {
     FirstPage,
     LastPage,
@@ -15,6 +16,8 @@ import Country from '../Country/Country';
 
 const Countries = () => {
     const { getAllCountries, countries, filtered, sortByQuery, dispatch } = useContext(GlobalContext);
+
+    const width = useWidth();
 
     /* pagination */
     const [activePage, setActivePage] = useState(1);
@@ -55,7 +58,7 @@ const Countries = () => {
                 onChange={changePage}
                 activePage={activePage}
                 itemsCountPerPage={itemsPerPage}
-                pageRangeDisplayed={5}
+                pageRangeDisplayed={width > 576 ? 5 : 3}
                 firstPageText={<FirstPage />}
                 prevPageText={<ChevronLeftOutlined />}
                 lastPageText={<LastPage />}
@@ -87,13 +90,13 @@ const CountriesContainer = styled.section`
 		display: flex;
 		justify-content: center;
 		margin-top: auto;
-		margin-bottom: 20px;
+		margin-bottom: 2rem;
 		.pagination-item {
 			border: 1px groove #fff;
-			width: 50px;
-			height: 30px;
+			width: 5rem;
+			height: 3rem;
 			display: flex;
-			margin-right: 10px;
+			margin-right: 1rem;
 			&:last-of-type {
 				margin-right: 0;
 			}
@@ -115,9 +118,16 @@ const CountriesContainer = styled.section`
 
     @media (max-width: 576px) {
         overflow-y: scroll;
-        
+
         ul.countries-list {
             overflow-y: scroll;
+        }
+
+        .pagination-container {
+
+            .pagination-item {
+                width: 3.8rem;
+            }
         }
     }
 `;
