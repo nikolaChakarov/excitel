@@ -58,6 +58,7 @@ const Controls = () => {
 						name="countryName"
 						value={countryName}
 						onChange={onInputChangeHandler}
+						autoComplete={'off'}
 					/>
 					<Search className="icon" />
 				</div>
@@ -155,6 +156,7 @@ const ControlsContainer = styled.section`
 				margin: 0 0.5rem;
 			}
 		}
+
 	}
 
 	input {
@@ -173,6 +175,8 @@ const ControlsContainer = styled.section`
 		cursor: pointer;
 		color: var(--purple);
 		box-shadow: var(--innerShadow);
+		min-height: 2.5rem;
+
 
 		.arrow-wrapper {
 			display: flex;
@@ -183,6 +187,29 @@ const ControlsContainer = styled.section`
 
 		.current-select {
 			font-weight: 600;
+		}
+	}
+
+	@media (max-width: 576px) {
+		flex-direction: column;
+
+		label {
+			flex-direction: column;
+			margin: 0 0 2rem 0;
+			
+			.input-wrapper {
+				width: 100%;
+				
+				input {
+					flex: 1;
+				}
+				
+			}
+
+			span {
+				margin: 0 0 .3rem 0;
+				align-self: flex-start;
+			}
 		}
 	}
 `;

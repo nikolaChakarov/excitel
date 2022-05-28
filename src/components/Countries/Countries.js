@@ -41,10 +41,10 @@ const Countries = () => {
     }, []);
 
     return (
-        <CountriesContainer>
+        <CountriesContainer className="countries-main">
             <Controls />
 
-            <Ul>
+            <Ul className="countries-list">
                 {displayItems.map((el, i) => (
                     <Country key={i} {...el} id={i} />
                 ))}
@@ -111,6 +111,14 @@ const CountriesContainer = styled.section`
 			color: #fff;
 			transition: all 0.2s ease-in-out;
 		} 
+    }
+
+    @media (max-width: 576px) {
+        overflow-y: scroll;
+        
+        ul.countries-list {
+            overflow-y: scroll;
+        }
     }
 `;
 
